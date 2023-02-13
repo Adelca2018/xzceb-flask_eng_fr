@@ -1,4 +1,4 @@
-import json
+#import json
 import os
 
 from ibm_watson import LanguageTranslatorV3
@@ -19,7 +19,7 @@ language_translator.set_service_url(URL)
 def english_to_french(english_text):
     try:
         french_text = language_translator.translate(text = english_text,
-            model_id = 'en-fr').get_result()
+            model_id = 'en-fr').get_result().get("translations")[0].get("translation")
     except IOError:   
         print("input error")
     else:
@@ -30,7 +30,7 @@ def french_to_english(french_text):
         english_text = language_translator.translate(
             text = french_text,
             model_id = 'fr-en'
-            ).get_result()
+            ).get_result().get("translations")[0].get("translation")
     except IOError:   
         print("input error")
     else:
